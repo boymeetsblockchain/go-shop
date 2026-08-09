@@ -1,3 +1,4 @@
+// Package models defines the domain models used by the e-commerce application.
 package models
 
 import (
@@ -6,6 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Order represents a customer's order with its items and metadata.
 type Order struct {
 	ID          uint           `json:"id" gorm:"primaryKey"`
 	UserID      uint           `json:"user_id" gorm:"not null"`
@@ -20,8 +22,10 @@ type Order struct {
 	OrderItems []OrderItem `json:"order_items"`
 }
 
+// OrderStatus defines the state of an order.
 type OrderStatus string
 
+// OrderStatus constants represent the lifecycle states of an order.
 const (
 	OrderStatusPending   OrderStatus = "pending"
 	OrderStatusConfirmed OrderStatus = "confirmed"
@@ -30,6 +34,7 @@ const (
 	OrderStatusCancelled OrderStatus = "cancelled"
 )
 
+// OrderItem represents a single line item in an order.
 type OrderItem struct {
 	ID        uint           `json:"id" gorm:"primaryKey"`
 	OrderID   uint           `json:"order_id" gorm:"not null"`
@@ -44,6 +49,7 @@ type OrderItem struct {
 	Product Product `json:"product"`
 }
 
+// Cart represents a shopping cart for a user.
 type Cart struct {
 	ID        uint           `json:"id" gorm:"primaryKey"`
 	UserID    uint           `json:"user_id" gorm:"uniqueIndex;not null"`
@@ -55,6 +61,7 @@ type Cart struct {
 	CartItems []CartItem `json:"cart_items"`
 }
 
+// CartItem represents an item in a shopping cart.
 type CartItem struct {
 	ID        uint           `json:"id" gorm:"primaryKey"`
 	CartID    uint           `json:"cart_id" gorm:"not null"`

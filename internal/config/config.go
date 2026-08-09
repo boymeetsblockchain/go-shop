@@ -1,3 +1,4 @@
+// Package config provides application configuration loading and defaults.
 package config
 
 import (
@@ -8,6 +9,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// Config holds all application configuration values.
 type Config struct {
 	Server   ServerConfig
 	Database DatabaseConfig
@@ -16,11 +18,13 @@ type Config struct {
 	Upload   UploadConfig
 }
 
+// ServerConfig holds web server configuration values.
 type ServerConfig struct {
 	Port    string
 	GinMode string
 }
 
+// DatabaseConfig holds database connection settings.
 type DatabaseConfig struct {
 	Host     string
 	Port     string
@@ -30,11 +34,14 @@ type DatabaseConfig struct {
 	SSLMode  string
 }
 
+// JWTConfig holds JWT token settings.
 type JWTConfig struct {
 	Secret              string
 	ExpiresIn           time.Duration
 	RefreshTokenExpires time.Duration
 }
+
+// AWSConfig holds AWS credentials and S3 storage configuration.
 type AWSConfig struct {
 	Region          string
 	AccessKeyID     string
@@ -43,11 +50,13 @@ type AWSConfig struct {
 	S3Endpoint      string
 }
 
+// UploadConfig holds the file upload settings.
 type UploadConfig struct {
 	Path        string
 	MaxFileSize int64
 }
 
+// Load reads environment variables and returns the application configuration.
 func Load() (*Config, error) {
 	_ = godotenv.Load()
 
