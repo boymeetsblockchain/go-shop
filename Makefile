@@ -28,7 +28,7 @@ run:
 dev:
 	go run ./cmd/api
 
-lint: format
+lint: 
 	golangci-lint run ./...
 
 format:
