@@ -15,7 +15,7 @@ type Claim struct {
 	jwt.RegisteredClaims
 }
 
-func generateJWT(cfg *config.JWTConfig, userId uint, email, role string) (accessToken string, refreshToken string, err error) {
+func GenerateJWT(cfg *config.JWTConfig, userId uint, email, role string) (accessToken string, refreshToken string, err error) {
 	accessClaims := &Claim{
 		UserID: userId,
 		Email:  email,
@@ -50,7 +50,7 @@ func generateJWT(cfg *config.JWTConfig, userId uint, email, role string) (access
 	return accessToken, refreshToken, nil
 }
 
-func validateToken(tokenString, secret string) (*Claim, error) {
+func ValidateToken(tokenString, secret string) (*Claim, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &Claim{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil
 	})
