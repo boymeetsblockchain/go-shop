@@ -14,6 +14,7 @@ import (
 	"github.com/boymeetsblockchain/e-commerce/internal/config"
 	"github.com/boymeetsblockchain/e-commerce/internal/database"
 	"github.com/boymeetsblockchain/e-commerce/internal/logger"
+	"github.com/boymeetsblockchain/e-commerce/internal/services"
 	"github.com/boymeetsblockchain/e-commerce/server"
 	"github.com/gin-gonic/gin"
 )
@@ -42,10 +43,13 @@ func main() {
 		}
 	}()
 	gin.SetMode(cfg.Server.GinMode)
+	authService := services.NewAuthService(db, cfg)
+	productService := services.NewProductService(db)
+	userService := services.NewUserService(db)
 
 	log.Info().Msg("starting server")
 
-	srv := server.New(cfg, db, log)
+	srv := server.New(cfg, db, log, authService, productService, userService)
 
 	router := srv.SetupRoutes()
 
