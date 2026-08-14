@@ -17,6 +17,7 @@ type Server struct {
 	authService    *services.AuthService
 	productService *services.ProductService
 	userService    *services.UserService
+	uploadService  services.UploadService
 }
 
 func New(cfg *config.Config, db *gorm.DB, logger zerolog.Logger, authService *services.AuthService, productService *services.ProductService, userService *services.UserService) *Server {
